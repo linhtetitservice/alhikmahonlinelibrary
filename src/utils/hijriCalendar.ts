@@ -27,7 +27,7 @@ const HIJRI_MONTHS_AR = [
   'ذُو الحِجَّة',
 ];
 
-const HIJRI_MONTHS_MM = [
+export const HIJRI_MONTHS_MM = [
   'မုဟရ်ရမ်',
   'ဆွဖရ်',
   'ရဗီအုလ်အောင်ဝလ်',
@@ -42,7 +42,7 @@ const HIJRI_MONTHS_MM = [
   'ဇုလ်ဟိဂျ်ဂျဟ်',
 ];
 
-const WEEKDAYS_MM = [
+export const WEEKDAYS_MM = [
   'တနင်္ဂနွေ',
   'တနင်္လာ',
   'အင်္ဂါ',

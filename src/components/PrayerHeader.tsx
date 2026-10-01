@@ -33,12 +33,14 @@ import { CityPrayerConfig } from '../types';
 
 interface PrayerHeaderProps {
   onOpenFullSchedule: () => void;
+  onOpenMonthlyTimetable?: () => void;
   selectedCity?: CityPrayerConfig;
   onSelectCity?: (city: CityPrayerConfig) => void;
 }
 
 export const PrayerHeader: React.FC<PrayerHeaderProps> = ({ 
   onOpenFullSchedule,
+  onOpenMonthlyTimetable,
   selectedCity: propSelectedCity,
   onSelectCity: propOnSelectCity
 }) => {
@@ -254,13 +256,27 @@ export const PrayerHeader: React.FC<PrayerHeaderProps> = ({
               </div>
             </div>
 
-            <button
-              onClick={onOpenFullSchedule}
-              className="text-xs text-amber-300/90 hover:text-amber-200 hover:underline flex items-center gap-1 cursor-pointer"
-            >
-              <span>ဇယားအပြည့်စုံ</span>
-              <ChevronRight className="w-3.5 h-3.5" />
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={onOpenFullSchedule}
+                className="text-xs text-amber-300/90 hover:text-amber-200 hover:underline flex items-center gap-1 cursor-pointer"
+                title="ယနေ့အချိန်ဇယား အသေးစိတ်ကြည့်မည်"
+              >
+                <span>ယနေ့အသေးစိတ်</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </button>
+
+              {onOpenMonthlyTimetable && (
+                <button
+                  onClick={onOpenMonthlyTimetable}
+                  className="px-2.5 py-1.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-stone-950 font-bold rounded-lg text-xs flex items-center gap-1.5 shadow-sm transition-all cursor-pointer active:scale-95"
+                  title="တစ်လစာ နမားဇ်အချိန်ဇယား တွက်ချက်၍ PDF / PNG ထုတ်ယူမည်"
+                >
+                  <CalendarIcon className="w-3.5 h-3.5 text-stone-950" />
+                  <span>တစ်လစာ ဇယား (PDF/PNG)</span>
+                </button>
+              )}
+            </div>
           </div>
 
           {/* Responsive Grid of Islamic Times: Fajr, Sunrise, Zawaal, Dhuhr, Asr, Maghrib/Sunset, Isha */}

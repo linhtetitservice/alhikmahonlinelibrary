@@ -48,6 +48,7 @@ import { DailyHadeeth } from './components/DailyHadeeth';
 import { HardDrive, Headphones } from 'lucide-react';
 import { PWAInstallButton } from './components/PWAInstallButton';
 import { OfflineIndicator } from './components/OfflineIndicator';
+import { MonthlyPrayerTimetableModal } from './components/MonthlyPrayerTimetableModal';
 
 function MainApp() {
   const { isAuthenticated, isAdmin, openAuthModal, user } = useAuth();
@@ -86,6 +87,7 @@ function MainApp() {
   const [isUploadAudioModalOpen, setIsUploadAudioModalOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
+  const [isMonthlyTimetableOpen, setIsMonthlyTimetableOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isChatbotDrawerOpen, setIsChatbotDrawerOpen] = useState(false);
   const [isWorkspaceModalOpen, setIsWorkspaceModalOpen] = useState(false);
@@ -147,6 +149,7 @@ function MainApp() {
         selectedCity={selectedCity}
         onSelectCity={setSelectedCity}
         onOpenFullSchedule={() => setIsScheduleModalOpen(true)}
+        onOpenMonthlyTimetable={() => setIsMonthlyTimetableOpen(true)}
       />
 
       {/* 2. Main Navigation Bar */}
@@ -417,6 +420,14 @@ function MainApp() {
         isOpen={isScheduleModalOpen}
         onClose={() => setIsScheduleModalOpen(false)}
         onSelectCity={setSelectedCity}
+        onOpenMonthlyTimetable={() => setIsMonthlyTimetableOpen(true)}
+      />
+
+      {/* Monthly Prayer Timetable with PDF and PNG Export Modal */}
+      <MonthlyPrayerTimetableModal
+        isOpen={isMonthlyTimetableOpen}
+        onClose={() => setIsMonthlyTimetableOpen(false)}
+        initialCity={selectedCity}
       />
 
       {/* Member Authentication Modal */}

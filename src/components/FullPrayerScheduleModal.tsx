@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Sun, Moon, AlertCircle, Printer, MapPin, Clock } from 'lucide-react';
+import { X, Sun, Moon, AlertCircle, Printer, MapPin, Clock, Calendar } from 'lucide-react';
 import { CityPrayerConfig } from '../types';
 import { calculatePrayerTimes, formatTime12Hour, FullSolarPrayerSchedule, MYANMAR_CITIES } from '../utils/prayerTimes';
 import { getMyanmarStandardTimeInfo } from '../utils/hijriCalendar';
@@ -9,6 +9,7 @@ interface FullPrayerScheduleModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSelectCity?: (city: CityPrayerConfig) => void;
+  onOpenMonthlyTimetable?: () => void;
 }
 
 export const FullPrayerScheduleModal: React.FC<FullPrayerScheduleModalProps> = ({
@@ -16,6 +17,7 @@ export const FullPrayerScheduleModal: React.FC<FullPrayerScheduleModalProps> = (
   isOpen,
   onClose,
   onSelectCity,
+  onOpenMonthlyTimetable,
 }) => {
   if (!isOpen) return null;
 
@@ -230,17 +232,31 @@ export const FullPrayerScheduleModal: React.FC<FullPrayerScheduleModalProps> = (
         </div>
 
         {/* Footer */}
-        <div className="bg-stone-50 px-6 py-3 border-t border-stone-200 flex items-center justify-between">
+        <div className="bg-stone-50 px-6 py-3 border-t border-stone-200 flex flex-wrap items-center justify-between gap-2">
           <span className="text-xs text-stone-500">
             စံတော်ချိန်: မြန်မာစံတော်ချိန် (UTC +6:30)
           </span>
-          <button
-            onClick={() => window.print()}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-stone-200 hover:bg-stone-300 text-stone-800 rounded-md text-xs font-medium cursor-pointer"
-          >
-            <Printer className="w-3.5 h-3.5" />
-            <span>ဇယား ပရင့်ထုတ်ရန်</span>
-          </button>
+          <div className="flex items-center gap-2">
+            {onOpenMonthlyTimetable && (
+              <button
+                onClick={() => {
+                  onClose();
+                  onOpenMonthlyTimetable();
+                }}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-emerald-800 to-teal-800 hover:from-emerald-900 hover:to-teal-900 text-amber-300 font-bold rounded-md text-xs cursor-pointer shadow-xs transition-all active:scale-95"
+              >
+                <Calendar className="w-3.5 h-3.5 text-amber-400" />
+                <span>တစ်လစာ အချိန်ဇယား (PDF / PNG) ထုတ်ယူမည်</span>
+              </button>
+            )}
+            <button
+              onClick={() => window.print()}
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-stone-200 hover:bg-stone-300 text-stone-800 rounded-md text-xs font-medium cursor-pointer"
+            >
+              <Printer className="w-3.5 h-3.5" />
+              <span>ဇယား ပရင့်ထုတ်ရန်</span>
+            </button>
+          </div>
         </div>
 
       </div>
